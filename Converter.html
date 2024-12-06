@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h3 {
+            color: #555;
+        }
+        input {
+            padding: 8px;
+            margin: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            color: #333;
+            font-size: 1.1em;
+        }
+        .converter {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+    </style>
+    <script>
+        function celsiusToFahrenheit() {
+            var celsius = document.getElementById("celsius").value;
+            if (!celsius) {
+                alert("Please enter a valid Celsius value.");
+                return;
+            }
+            var fahrenheit = (celsius * 9 / 5) + 32;
+            document.getElementById("resultCelsiusToFahrenheit").innerText = `${celsius}°C = ${fahrenheit.toFixed(2)}°F`;
+        }
+
+        function fahrenheitToCelsius() {
+            var fahrenheit = document.getElementById("fahrenheit").value;
+            if (!fahrenheit) {
+                alert("Please enter a valid Fahrenheit value.");
+                return;
+            }
+            var celsius = (fahrenheit - 32) * 5 / 9;
+            document.getElementById("resultFahrenheitToCelsius").innerText = `${fahrenheit}°F = ${celsius.toFixed(2)}°C`;
+        }
+
+        function metersToFeet() {
+            var meters = document.getElementById("meters").value;
+            if (!meters) {
+                alert("Please enter a valid Meters value.");
+                return;
+            }
+            var feet = meters * 3.28084;
+            document.getElementById("resultMetersToFeet").innerText = `${meters} meters = ${feet.toFixed(2)} feet`;
+        }
+
+        function feetToMeters() {
+            var feet = document.getElementById("feet").value;
+            if (!feet) {
+                alert("Please enter a valid Feet value.");
+                return;
+            }
+            var meters = feet / 3.28084;
+            document.getElementById("resultFeetToMeters").innerText = `${feet} feet = ${meters.toFixed(2)} meters`;
+        }
+    </script><script src="script.js"></script>
+
+</head>
+<body>
+    <h1>Unit Converter</h1>
+    <div class="converter">
+        <!-- Celsius to Fahrenheit -->
+        <h3>Celsius to Fahrenheit</h3>
+        <input type="number" id="celsius" placeholder="Enter Celsius">
+        <button onclick="celsiusToFahrenheit()">Convert</button>
+        <p id="resultCelsiusToFahrenheit"></p>
+
+        <!-- Fahrenheit to Celsius -->
+        <h3>Fahrenheit to Celsius</h3>
+        <input type="number" id="fahrenheit" placeholder="Enter Fahrenheit">
+        <button onclick="fahrenheitToCelsius()">Convert</button>
+        <p id="resultFahrenheitToCelsius"></p>
+
+        <!-- Meters to Feet -->
+        <h3>Meters to Feet</h3>
+        <input type="number" id="meters" placeholder="Enter Meters">
+        <button onclick="metersToFeet()">Convert</button>
+        <p id="resultMetersToFeet"></p>
+
+        <!-- Feet to Meters -->
+        <h3>Feet to Meters</h3>
+        <input type="number" id="feet" placeholder="Enter Feet">
+        <button onclick="feetToMeters()">Convert</button>
+        <p id="resultFeetToMeters"></p>
+    </div>
+</body>
+</html>
