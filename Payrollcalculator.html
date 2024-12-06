@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h2, h3 {
+            color: #007BFF;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        td button {
+            padding: 5px 10px;
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        td button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Payroll Management System</h2>
+
+    <!-- Form to input employee data -->
+    <div>
+        <h3>Add Employee</h3>
+        <form id="employeeForm">
+            <label for="name">Employee Name:</label>
+            <input type="text" id="name" placeholder="Enter employee name" required>
+
+            <label for="daysWorked">Days Worked:</label>
+            <input type="number" id="daysWorked" placeholder="Enter days worked" min="0" required>
+
+            <label for="dailyRate">Daily Rate:</label>
+            <input type="number" id="dailyRate" placeholder="Enter daily rate" min="0" required>
+
+            <label for="deduction">Deduction Amount:</label>
+            <input type="number" id="deduction" placeholder="Enter deduction amount" min="0" required>
+
+            <button type="submit">Add Employee</button>
+        </form>
+    </div>
+
+    <h3>Payroll List</h3>
+    <table id="payrollTable">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Employee Name</th>
+                <th>Days Worked</th>
+                <th>Daily Rate</th>
+                <th>Gross Pay</th>
+                <th>Deduction Amount</th>
+                <th>Net Pay</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Payroll data will be displayed here -->
+        </tbody>
+    </table>
+
+    <!-- Delete Employee by Line Number -->
+    <div>
+        <h3>Delete Employee</h3>
+        <label for="lineNumber">Enter Line Number to Delete:</label>
+        <input type="number" id="lineNumber" min="1">
+        <button onclick="deleteEmployee()">Delete Employee</button>
+    </div>
+
+    <script>
+        let payrollList = [];
+
+        document.getElementById('employeeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const daysWorked = parseInt(document.getElementById('daysWorked').value);
+            const dailyRate = parseFloat(document.getElementById('dailyRate').value);
+            const deduction = parseFloat(document.getElementById('deduction').value);
+
+            if (daysWorked < 0 || dailyRate < 0 || deduction < 0) {
+                alert("Please enter non-negative values.");
+                return;
+            }
+
+            const grossPay = daysWorked * dailyRate;
+            const netPay = grossPay - deduction;
+
+            const employee = { name, daysWorked, dailyRate, deduction, grossPay, netPay };
+
+            payrollList.push(employee);
+            document.getElementById('employeeForm').reset();
+            displayPayroll();
+        });
+
+        function displayPayroll() {
+            const tbody = document.getElementById('payrollTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+
+            payrollList.forEach((employee, index) => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${employee.name}</td>
+                    <td>${employee.daysWorked}</td>
+                    <td>${employee.dailyRate.toFixed(2)}</td>
+                    <td>${employee.grossPay.toFixed(2)}</td>
+                    <td>${employee.deduction.toFixed(2)}</td>
+                    <td>${employee.netPay.toFixed(2)}</td>
+                    <td><button onclick="deleteRow(${index})">Delete</button></td>
+                `;
+            });
+        }
+
+        function deleteEmployee() {
+            const lineNumber = parseInt(document.getElementById('lineNumber').value);
+
+            if (lineNumber < 1 || lineNumber > payrollList.length) {
+                alert('Invalid Line Number');
+                return;
+            }
+
+            payrollList.splice(lineNumber - 1, 1);
+            displayPayroll();
+            document.getElementById('lineNumber').value = '';
+        }
+
+        function deleteRow(index) {
+            payrollList.splice(index, 1);
+            displayPayroll();
+        }
+    </script><script src="script.js"></script>
+
+
+</body>
+</html>
