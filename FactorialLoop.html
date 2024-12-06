@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h3 {
+            color: #555;
+        }
+        input {
+            padding: 8px;
+            margin: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            color: #333;
+            font-size: 1.1em;
+        }
+        .calculator {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+    </style>
+    <script>
+        function calculateFactorial() {
+            var n = parseInt(document.getElementById("n").value);
+            if (isNaN(n) || n < 0) {
+                alert("Please enter a valid non-negative number.");
+                return;
+            }
+            var factorial = 1;
+            var i = 1;
+            while (i <= n) {
+                factorial *= i;
+                i++;
+            }
+            document.getElementById("factorialResult").innerText = `Factorial of ${n}: ${factorial}`;
+        }
+
+        function calculateSum() {
+            var n = parseInt(document.getElementById("sumN").value);
+            if (isNaN(n) || n <= 0) {
+                alert("Please enter a positive number.");
+                return;
+            }
+            var sum = 0;
+            do {
+                sum += n;
+                n--;
+            } while (n > 0);
+            document.getElementById("sumResult").innerText = `Sum of first N numbers: ${sum}`;
+        }
+
+        function calculateAverage() {
+            var n = parseInt(document.getElementById("averageN").value);
+            if (isNaN(n) || n <= 0) {
+                alert("Please enter a positive number.");
+                return;
+            }
+            var total = 0;
+            for (var i = 1; i <= n; i++) {
+                total += i;
+            }
+            var average = total / n;
+            document.getElementById("averageResult").innerText = `Average of first N numbers: ${average.toFixed(2)}`;
+        }
+    </script><script src="script.js"></script>
+
+</head>
+<body>
+    <h1>Loops Calculations</h1>
+    <div class="calculator">
+        <!-- Factorial -->
+        <h3>Factorial</h3>
+        <input type="number" id="n" placeholder="Enter a number">
+        <button onclick="calculateFactorial()">Calculate Factorial</button>
+        <p id="factorialResult"></p>
+
+        <!-- Sum of first N numbers -->
+        <h3>Sum of First N Numbers</h3>
+        <input type="number" id="sumN" placeholder="Enter N">
+        <button onclick="calculateSum()">Calculate Sum</button>
+        <p id="sumResult"></p>
+
+        <!-- Average of first N numbers -->
+        <h3>Average of First N Numbers</h3>
+        <input type="number" id="averageN" placeholder="Enter N">
+        <button onclick="calculateAverage()">Calculate Average</button>
+        <p id="averageResult"></p>
+    </div>
+</body>
+</html>
+
