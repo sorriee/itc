@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        label, p {
+            font-size: 1.1em;
+            color: #555;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #taxResult {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .calculator {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+    </style>
+    <script>
+        function calculateIncomeTax() {
+            var income = parseFloat(document.getElementById("income").value);
+
+            if (isNaN(income) || income < 0) {
+                alert("Please enter a valid non-negative income.");
+                return;
+            }
+
+            var tax;
+
+            if (income <= 250000) {
+                tax = 0;
+            } else if (income <= 400000) {
+                tax = (income - 250000) * 0.2;
+            } else if (income <= 800000) {
+                tax = (income - 400000) * 0.25 + 30000;
+            } else if (income <= 2000000) {
+                tax = (income - 800000) * 0.30 + 130000;
+            } else if (income <= 8000000) {
+                tax = (income - 2000000) * 0.32 + 490000;
+            } else {
+                tax = (income - 8000000) * 0.35 + 2410000;
+            }
+            
+            document.getElementById("taxResult").innerText = `Income: ₱${income.toFixed(2)} | Tax: ₱${tax.toFixed(2)}`;
+        }
+    </script><script src="script.js"></script>
+
+</head>
+<body>
+    <h1>Income Tax Calculator</h1>
+    <div class="calculator">
+        <label for="income">Enter Income (PHP):</label><br>
+        <input type="number" id="income" placeholder="Enter income"><br>
+        <button onclick="calculateIncomeTax()">Calculate Tax</button>
+        <p id="taxResult"></p>
+    </div>
+</body>
+</html>
